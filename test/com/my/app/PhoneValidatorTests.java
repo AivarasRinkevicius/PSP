@@ -22,25 +22,25 @@ public class PhoneValidatorTests {
 
     @ParameterizedTest
     @CsvSource({"868686866,LT", "+37068686866,LT", "+48123456789,PL"})
-    void validatePhone_PhoneIsValid_ExpectedResultTrue(String number, String country)
+    void TestValidatePhone_PhoneIsValid_ExpectedResultTrue(String number, String country)
     {
         assertTrue(phoneValidator.validatePhone(number, country));
     }
 
     @Test
-    void validatePhone_PhoneNumberContainsOtherSymbols_ExpectedResultFalse()
+    void TestValidatePhone_PhoneNumberContainsOtherSymbols_ExpectedResultFalse()
     {
         assertFalse(phoneValidator.validatePhone("+37068gs+866","LT"));
     }
 
     @Test
-    void validatePhone_PhoneNumberIsTooShort_ExpectedResultFalse()
+    void TestValidatePhone_PhoneNumberIsTooShort_ExpectedResultFalse()
     {
         assertFalse(phoneValidator.validatePhone("+48686", "PL"));
     }
 
     @Test
-    void validatePhone_PhoneNumberPrefixIsWrongBasedOnCountry_ExpectedResultFalse()
+    void TestValidatePhone_PhoneNumberPrefixIsWrongBasedOnCountry_ExpectedResultFalse()
     {
         assertFalse(phoneValidator.validatePhone("+37068686866", "PL"));
     }

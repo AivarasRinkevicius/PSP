@@ -17,25 +17,25 @@ public class PasswordCheckerTests {
     }
 
     @Test
-    void validatePassword_PasswordIsValid_ExpectedResultTrue()
+    void TestValidatePassword_PasswordIsValid_ExpectedResultTrue()
     {
         assertTrue(passwordChecker.validatePassword(10, "Qwertyuio?"));
     }
 
     @Test
-    void validatePassword_PasswordIsTooShort_ExpectedResultFalse()
+    void TestValidatePassword_PasswordIsTooShort_ExpectedResultFalse()
     {
         assertFalse(passwordChecker.validatePassword(10, "Qwertyu?"));
     }
 
     @Test
-    void validatePassword_PasswordDoesNotContainUppercaseSymbol_ExpectedResultFalse()
+    void TestValidatePassword_PasswordDoesNotContainUppercaseSymbol_ExpectedResultFalse()
     {
         assertFalse(passwordChecker.validatePassword(10, "qwertyuio?"));
     }
 
     @Test
-    void validatePassword_PasswordDoesNotContainSpecialSymbol_ExpectedResultFalse()
+    void TestValidatePassword_PasswordDoesNotContainSpecialSymbol_ExpectedResultFalse()
     {
         assertFalse(passwordChecker.validatePassword(10, "Qwertyuiout"));
     }
