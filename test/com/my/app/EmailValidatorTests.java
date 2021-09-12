@@ -31,7 +31,7 @@ public class EmailValidatorTests {
     @Test
     void validateEmail_EmailContainsIllegalSymbols_ExpectedResultFalse()
     {
-        assertFalse(emailValidator.validateEmail("qw©rty@ail.com"));
+        assertFalse(emailValidator.validateEmail("qw©rty@gmail.com"));
     }
 
     @Test
