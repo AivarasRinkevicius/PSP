@@ -2,6 +2,8 @@ package com.my.app;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -14,36 +16,64 @@ public class EmailValidatorTests {
     void setUp()
     {
         emailValidator = new EmailValidator();
+        emailValidator.setСorrectDomain("gmail.com");
+        emailValidator.setСorrectDomain("yahoo.com");
+        emailValidator.setIllegalSymbols("©&");
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"qwerty@gmail.com", "qwerty@yahoo.com"})
+    void TestValidateEmail_EmailIsValid_ExpectedResultTrue(String email)
+    {
+        assertTrue(emailValidator.validateEmail(email));
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"qwerty(hello)@gmail.com", "qwer(John?)ty@yahoo.com"})
+    void TestValidateEmail_EmailContainsComments_ExpectedResultTrue(String email)
+    {
+        assertTrue(emailValidator.validateEmail(email));
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"qwertygmail.com", "qwertyyahoo.com"})
+    void TestValidateEmail_EmailDoesNotContainEtaSymbol_ExpectedResultFalse(String email)
+    {
+        assertFalse(emailValidator.validateEmail(email));
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"qw©rty@gmail.com", "qwr&ty@yahoo.com"})
+    void TestValidateEmail_EmailContainsIllegalSymbols_ExpectedResultFalse(String email)
+    {
+        assertFalse(emailValidator.validateEmail(email));
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"1234567890123456789012345678901234567890123456789012345678901234+x@gmail.com", "1234567890123456789012345678901234567890123456789012345678901234+x@yahoo.com"})
+    void TestValidateEmail_LocalPartOfEmailIsLongerThanMaximum64Characters_ExpectedResultFalse(String email)
+    {
+        assertFalse(emailValidator.validateEmail(email));
+    }
+
+
+    @ParameterizedTest
+    @ValueSource(strings = {"qwerty@ail.com", "qwerty@yaho.com"})
+    void TestValidateEmail_EmailContainsWrongDomain_ExpectedResultFalse(String email)
+    {
+        assertFalse(emailValidator.validateEmail(email));
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"qwerty@gail.c", "qwerty@yahoo.cm"})
+    void TestValidateEmail_EmailContainsWrongTopLevelDomain_ExpectedResultFalse(String email)
+    {
+        assertFalse(emailValidator.validateEmail(email));
     }
 
     @Test
-    void TestValidateEmail_EmailIsValid_ExpectedResultTrue()
-    {
-        assertTrue(emailValidator.validateEmail("qwerty@gmail.com"));
-    }
-
-    @Test
-    void TestValidateEmail_EmailDoesNotContainEtaSymbol_ExpectedResultFalse()
-    {
-        assertFalse(emailValidator.validateEmail("qwertygmail.com"));
-    }
-
-    @Test
-    void TestValidateEmail_EmailContainsIllegalSymbols_ExpectedResultFalse()
-    {
-        assertFalse(emailValidator.validateEmail("qw©rty@gmail.com"));
-    }
-
-    @Test
-    void TestValidateEmail_EmailContainsWrongDomain_ExpectedResultFalse()
-    {
-        assertFalse(emailValidator.validateEmail("qwerty@ail.com"));
-    }
-
-    @Test
-    void TestValidateEmail_EmailContainsWrongTopLevelDomain_ExpectedResultFalse()
-    {
-        assertFalse(emailValidator.validateEmail("qwerty@gmail.c"));
+    void TestValidateEmail_EmailIsNull_ExpectedResultFalse(){
+        assertFalse(emailValidator.validateEmail(null));
     }
 
 }

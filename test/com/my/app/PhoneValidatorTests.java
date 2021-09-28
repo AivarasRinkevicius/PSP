@@ -16,8 +16,9 @@ public class PhoneValidatorTests {
     void setUp()
     {
         phoneValidator = new PhoneValidator();
+        phoneValidator.setPrefix("LT","+370");
         phoneValidator.setPrefix("PL","+48");
-        phoneValidator.setLength("PL",12);
+        phoneValidator.setPrefixToChange("LT","8");
     }
 
     @ParameterizedTest
@@ -45,4 +46,9 @@ public class PhoneValidatorTests {
         assertFalse(phoneValidator.validatePhone("+37068686866", "PL"));
     }
 
+    @Test
+    void TestValidatePhone_PhoneNumberIsNull_ExpectedResultFalse()
+    {
+        assertFalse(phoneValidator.validatePhone(null));
+    }
 }
