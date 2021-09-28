@@ -8,7 +8,7 @@ import org.junit.jupiter.params.provider.CsvSource;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class PhoneValidatorTests {
+public class PhoneValidatorTest {
 
     PhoneValidator phoneValidator;
 
