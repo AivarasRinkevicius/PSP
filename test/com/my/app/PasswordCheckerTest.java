@@ -2,6 +2,8 @@ package com.my.app;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -14,12 +16,14 @@ public class PasswordCheckerTest {
     void setUp()
     {
         passwordChecker = new PasswordChecker(10);
+        passwordChecker.setCustomCharacters("?+*");
     }
 
-    @Test
-    void TestValidatePassword_PasswordIsValid_ExpectedResultTrue()
+    @ParameterizedTest
+    @ValueSource(strings = {"Qwertyuio?","qweAtyBio+", "qwerTyuio*"})
+    void TestValidatePassword_PasswordIsValid_ExpectedResultTrue(String password)
     {
-        assertTrue(passwordChecker.validatePassword("Qwertyuio?"));
+        assertTrue(passwordChecker.validatePassword(password));
     }
 
     @Test

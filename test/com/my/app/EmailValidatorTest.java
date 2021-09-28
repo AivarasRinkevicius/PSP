@@ -18,7 +18,6 @@ public class EmailValidatorTest {
         emailValidator = new EmailValidator();
         emailValidator.setСorrectDomain("gmail.com");
         emailValidator.setСorrectDomain("yahoo.com");
-        emailValidator.setIllegalSymbols("©&");
     }
 
     @ParameterizedTest
