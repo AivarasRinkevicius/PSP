@@ -23,31 +23,31 @@ public class PasswordCheckerTest {
     @ValueSource(strings = {"Qwertyuio?","qweAtyBio+", "qwerTyuio*"})
     void TestValidatePassword_PasswordIsValid_ExpectedResultTrue(String password)
     {
-        assertTrue(passwordChecker.validatePassword(password));
+        assertTrue(passwordChecker.validate(password));
     }
 
     @Test
     void TestValidatePassword_PasswordIsTooShort_ExpectedResultFalse()
     {
-        assertFalse(passwordChecker.validatePassword("Qwertyu?"));
+        assertFalse(passwordChecker.validate("Qwertyu?"));
     }
 
     @Test
     void TestValidatePassword_PasswordDoesNotContainUppercaseSymbol_ExpectedResultFalse()
     {
-        assertFalse(passwordChecker.validatePassword("qwertyuio?"));
+        assertFalse(passwordChecker.validate("qwertyuio?"));
     }
 
     @Test
     void TestValidatePassword_PasswordDoesNotContainSpecialSymbol_ExpectedResultFalse()
     {
-        assertFalse(passwordChecker.validatePassword("Qwertyuiout"));
+        assertFalse(passwordChecker.validate("Qwertyuiout"));
     }
 
     @Test
     void TestValidatePassword_PasswordIsNull_ExpectedResultFalse()
     {
-        assertFalse(passwordChecker.validatePassword(null));
+        assertFalse(passwordChecker.validate(null));
     }
 
 }

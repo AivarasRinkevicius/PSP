@@ -25,30 +25,30 @@ public class PhoneValidatorTest {
     @CsvSource({"868686866,LT", "+37068686866,LT", "+48123456789,PL"})
     void TestValidatePhone_PhoneIsValid_ExpectedResultTrue(String number, String country)
     {
-        assertTrue(phoneValidator.validatePhone(number, country));
+        assertTrue(phoneValidator.validate(number, country));
     }
 
     @Test
     void TestValidatePhone_PhoneNumberContainsOtherSymbols_ExpectedResultFalse()
     {
-        assertFalse(phoneValidator.validatePhone("+37068gs+866","LT"));
+        assertFalse(phoneValidator.validate("+37068gs+866","LT"));
     }
 
     @Test
     void TestValidatePhone_PhoneNumberIsTooShort_ExpectedResultFalse()
     {
-        assertFalse(phoneValidator.validatePhone("+48686", "PL"));
+        assertFalse(phoneValidator.validate("+48686", "PL"));
     }
 
     @Test
     void TestValidatePhone_PhoneNumberPrefixIsWrongBasedOnCountry_ExpectedResultFalse()
     {
-        assertFalse(phoneValidator.validatePhone("+37068686866", "PL"));
+        assertFalse(phoneValidator.validate("+37068686866", "PL"));
     }
 
     @Test
     void TestValidatePhone_PhoneNumberIsNull_ExpectedResultFalse()
     {
-        assertFalse(phoneValidator.validatePhone(null));
+        assertFalse(phoneValidator.validate(null));
     }
 }
