@@ -1,5 +1,5 @@
 package com.company.interfaces;
 
-public interface ValidateEmail {
+public interface EmailValidation {
     boolean validateEmail(String email);
 }

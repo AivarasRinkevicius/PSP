@@ -1,6 +1,6 @@
 package com.company.interfaces;
 
-public interface ValidatePassword {
+public interface PasswordValidation {
     boolean checkPassword(String password);
     boolean checkPassword(String password, int length);
     boolean checkPassword(String password, String specialSymbols);

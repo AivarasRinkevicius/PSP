@@ -1,10 +1,10 @@
 package com.company.validators;
 
-import com.company.interfaces.ValidatePhone;
+import com.company.interfaces.PhoneValidation;
 
 import java.util.*;
 
-public class PhoneValidator implements ValidatePhone {
+public class PhoneValidator implements PhoneValidation {
 
     private Map<String, Integer> countryCodeAndLength = new HashMap<>();
     private Map<String, List<String>> prefixesToChange = new HashMap<>();

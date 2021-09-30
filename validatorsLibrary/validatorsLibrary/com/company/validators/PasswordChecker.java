@@ -1,11 +1,11 @@
 package com.company.validators;
 
-import com.company.interfaces.ValidatePassword;
+import com.company.interfaces.PasswordValidation;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class PasswordChecker implements ValidatePassword {
+public class PasswordChecker implements PasswordValidation {
 
     private int length = 8;
 

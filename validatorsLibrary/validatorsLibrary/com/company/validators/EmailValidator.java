@@ -1,11 +1,11 @@
 package com.company.validators;
 
-import com.company.interfaces.ValidateEmail;
+import com.company.interfaces.EmailValidation;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class EmailValidator implements ValidateEmail {
+public class EmailValidator implements EmailValidation {
 
     private List<String> listOfDomain= new ArrayList<>();
 
