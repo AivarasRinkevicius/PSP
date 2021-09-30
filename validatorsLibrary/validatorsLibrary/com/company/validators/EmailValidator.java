@@ -18,10 +18,10 @@ public class EmailValidator implements ValidateEmail {
         addDomainAddress("gmail");
         addDomainAddress("yahoo");
 
-        addlistOfTLDAddress(".com");
-        addlistOfTLDAddress(".net");
-        addlistOfTLDAddress(".org");
-        addlistOfTLDAddress(".lt");
+        addTLDAddress(".com");
+        addTLDAddress(".net");
+        addTLDAddress(".org");
+        addTLDAddress(".lt");
 
         addIllegalSymbol('©');
     }
@@ -44,12 +44,12 @@ public class EmailValidator implements ValidateEmail {
         listOfDomain.add(domainAddress);
     }
 
-    public void addlistOfTLDAddress(String domainAddress) {
-        listOfTLD.add(domainAddress);
+    public void addTLDAddress(String emailTLD) {
+        listOfTLD.add(emailTLD);
     }
 
-    public void addIllegalSymbol(char domainAddress) {
-        listOfIllegalSymbols.add(domainAddress);
+    public void addIllegalSymbol(char illegalSymbol) {
+        listOfIllegalSymbols.add(illegalSymbol);
     }
 
     public List<String> getListOfDomain() {
