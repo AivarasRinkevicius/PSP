@@ -7,13 +7,13 @@ import java.util.List;
 
 public class EmailValidator implements EmailValidation {
 
-    private List<String> listOfDomain= new ArrayList<>();
+    private List<String> listOfDomain = new ArrayList<>();
 
     private List<String> listOfTLD = new ArrayList<>();
 
     private List<Character> listOfIllegalSymbols = new ArrayList<>();
 
-    public EmailValidator(){
+    public EmailValidator() {
         addDomainAddress("google");
         addDomainAddress("gmail");
         addDomainAddress("yahoo");
@@ -30,11 +30,10 @@ public class EmailValidator implements EmailValidation {
         return !email.isEmpty();
     }
 
-    private boolean isEmailNotEmptyAndNotNull(String email)
-    {
+    private boolean isEmailNotEmptyAndNotNull(String email) {
         boolean isNotNull = email != null;
         boolean isNotEmpty = false;
-        if(isNotNull)  {
+        if (isNotNull) {
             isNotEmpty = isEmailNotEmpty(email);
         }
         return isNotNull && isNotEmpty;
@@ -64,49 +63,47 @@ public class EmailValidator implements EmailValidation {
         return listOfIllegalSymbols;
     }
 
-    private boolean emailContainsEta(String email)
-    {
+    private boolean emailContainsEta(String email) {
         return email.contains("@");
     }
 
     private boolean emailDoNotContainIllegalSymbols(String emailStartBeforeEta) {
-        for (char illegalSymbol:
-        listOfIllegalSymbols) {
-            if(emailStartBeforeEta.contains(Character.toString(illegalSymbol)))
-            {
+        for (char illegalSymbol :
+                listOfIllegalSymbols) {
+            if (emailStartBeforeEta.contains(Character.toString(illegalSymbol))) {
                 return false;
             }
         }
         return true;
     }
 
-    private boolean isEmailDomainCorrect(String domain)
-    {
-        for (String domainFromList:
-        listOfDomain) {
-            if(domain.equals(domainFromList))
-            {
+    private boolean isEmailDomainCorrect(String domain) {
+        for (String domainFromList :
+                listOfDomain) {
+            if (domain.equals(domainFromList)) {
                 return true;
             }
         }
         return false;
     }
 
-    private int emailContainsDot(String email)
-    {
+    private int emailContainsDot(String email) {
         return email.indexOf(".");
     }
+
     private boolean emailContainsCorrectDomain(String email, int etaPsotion, int dotPosition) {
-        if(dotPosition==-1)
-        {
-            return isEmailDomainCorrect(email.substring(etaPsotion+1));
-        }
-        else{
-            return isEmailDomainCorrect(email.substring(etaPsotion+1,dotPosition));
+        if (dotPosition == -1) {
+            return isEmailDomainCorrect(email.substring(etaPsotion + 1));
+        } else {
+            return isEmailDomainCorrect(email.substring(etaPsotion + 1, dotPosition));
         }
     }
 
-
+    private boolean localPartIsNotLongerThan64(String emailLocalPart)
+    {
+        return (emailLocalPart.length() <= 64);
+    }
+    
     private boolean correctEmailTLD(String emailTLD) {
         for (String TLD:
             listOfTLD) {
@@ -124,17 +121,20 @@ public class EmailValidator implements EmailValidation {
         boolean isNotContainingIllegalSymbol = true;
         boolean isDomainCorrect = false;
         boolean isTLDCorrect = false;
+        boolean isEmailLocalPartLengthCorrect = false;
         if(isNotEmptyAndNotNull){
             if(emailContainsEta(email)){
                 int etaPosition = email.indexOf("@");
                 int dotPosition = emailContainsDot(email);
-                isNotContainingIllegalSymbol = emailDoNotContainIllegalSymbols(email.substring(0,etaPosition));
+                String emailLocalPart = email.substring(0,etaPosition);
+                isNotContainingIllegalSymbol = emailDoNotContainIllegalSymbols(emailLocalPart);
+                isEmailLocalPartLengthCorrect = localPartIsNotLongerThan64(emailLocalPart);
                 isDomainCorrect = emailContainsCorrectDomain(email, etaPosition, dotPosition);
                 if(dotPosition!=-1){
                     isTLDCorrect = correctEmailTLD(email.substring(dotPosition));
                 }
             }
         }
-        return isNotEmptyAndNotNull && isNotContainingIllegalSymbol && isDomainCorrect && isTLDCorrect;
+        return isNotEmptyAndNotNull && isEmailLocalPartLengthCorrect && isNotContainingIllegalSymbol && isDomainCorrect && isTLDCorrect;
     }
 }
