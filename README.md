@@ -1,5 +1,5 @@
 # PSP
-(Programų sistemų projektavimo užduotis)
+(Programų sistemų projektavimo užduotys)
 
 **Software systems design tasks.**
 
