@@ -112,18 +112,19 @@ public class PhoneValidator implements PhoneValidation {
         boolean isCountryCodeCorrect = false;
         boolean isDigitsOnly = false;
         boolean isLengthCorrect = false;
+
         if(isNotNull && isNotEmpty) {
             String[] prefixToChange = prefixToChange(phoneNumber);
             boolean isTherePrefixToChange = prefixToChange!=null;
             if (isTherePrefixToChange) {
                 phoneNumber = changePhoneNumberPrefix(phoneNumber, prefixToChange[0],prefixToChange[1]);
             }
-
             isCountryCodeCorrect = isPhoneNumberWithCorrectCountryCode(phoneNumber);
             isDigitsOnly = isPhoneNumberContainsOnlyDigits(phoneNumber);
             isLengthCorrect = isPhoneLengthCorrect(phoneNumber);
         }
         this.phoneNumber = phoneNumber;
+
         return isDigitsOnly && isCountryCodeCorrect && isLengthCorrect;
     }
 }
