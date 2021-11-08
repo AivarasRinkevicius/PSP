@@ -1,4 +1,4 @@
-package com.saviizoliacijaweb.application;
+package com.user_creation.application;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

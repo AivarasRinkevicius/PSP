@@ -1,4 +1,4 @@
-package com.saviizoliacijaweb.application;
+package com.user_creation.application;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
