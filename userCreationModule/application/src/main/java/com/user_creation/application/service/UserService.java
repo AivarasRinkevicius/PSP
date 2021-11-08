@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -32,9 +33,10 @@ public class UserService {
     }
 
     public User findById(long id){
-        if(userRepository.findById(id).isPresent())
+        Optional<User> user = userRepository.findById(id);
+        if(user.isPresent())
         {
-            return userRepository.findById(id).get();
+            return user.get();
         }
         return null;
     }

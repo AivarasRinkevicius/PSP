@@ -9,11 +9,9 @@ import org.springframework.web.servlet.ModelAndView;
 public class ErrorController {
 	@ExceptionHandler(Exception.class)
 	public ModelAndView handleException(HttpServletRequest req, Exception ex) {
-		ModelAndView mv = new ModelAndView();
-		mv.addObject("exception", ex.getStackTrace());
-		mv.addObject("message", ex.getMessage());
-		mv.addObject("url", req.getRequestURL());
-		mv.setViewName("error");
-		return mv;
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.addObject("message", ex.getMessage());
+		modelAndView.setViewName("error");
+		return modelAndView;
 	}
 }

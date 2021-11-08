@@ -1,9 +1,14 @@
 package com.user_creation.application.controller;
 
+import com.user_creation.application.interfaces.Validator;
 import com.user_creation.application.model.User;
 import com.user_creation.application.service.UserService;
+import com.user_creation.application.service.ValidatorFactory;
 import org.hamcrest.Matchers;
+import org.hibernate.validator.internal.constraintvalidators.bv.NotNullValidator;
+
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -32,6 +37,13 @@ class UserControllerTest {
 
 	@MockBean
 	UserService userService;
+
+	@Mock
+	private Validator validator;
+
+	@MockBean
+	ValidatorFactory validatorFactory;
+
 
 	@Test
 	void testShowAll() throws Exception {
@@ -70,12 +82,15 @@ class UserControllerTest {
 				.andReturn();
 	}
 
+
 	@Test
 	void testAdd() throws Exception {
 
 		User user = new User("Jonas", "Jonaitis", "+37063914578", "jonaitis@gmail.com", "Vilnius, traku gatve 34", "Jomnas124?");
 
+		when(validatorFactory.getValidator(Mockito.anyString())).thenReturn(validator);
 		when(userService.add(Mockito.any(User.class))).thenReturn(user);
+
 
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.post("/add-user")
