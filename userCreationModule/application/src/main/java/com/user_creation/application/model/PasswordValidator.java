@@ -12,6 +12,10 @@ public class PasswordValidator implements Validator {
         ArrayList<Character> specialSymbols = new ArrayList<>();
         specialSymbols.add('?');
         specialSymbols.add('%');
+        specialSymbols.add('-');
+        specialSymbols.add('*');
+        specialSymbols.add('+');
+        specialSymbols.add('$');
         PasswordChecker.setMinPasswordLength(9);
         PasswordChecker.setSpecialSymbolList(specialSymbols);
         return PasswordChecker.checkPassword(input);
