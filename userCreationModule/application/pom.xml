@@ -12,7 +12,7 @@
 	<artifactId>prekes-web</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>user-app</name>
-	<description>Demo project for Spring Boot</description>
+	<description>user creation module</description>
 	<properties>
 		<java.version>16</java.version>
 	</properties>

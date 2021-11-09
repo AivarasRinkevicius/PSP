@@ -53,15 +53,15 @@ public class UserService {
         String errorMessage = "";
         if(!isEmailValid)
         {
-            errorMessage = errorMessage + "wrong email\n";
+            errorMessage = errorMessage + "blogas email!\n";
         }
         if(!isPasswordValid)
         {
-            errorMessage = errorMessage + "wrong password\n";
+            errorMessage = errorMessage + "blogas slaptazodis!\n";
         }
         if(!isPhoneValid)
         {
-            errorMessage = errorMessage + "wrong phone number\n";
+            errorMessage = errorMessage + "blogas telefono numeris!\n";
         }
         if(isEmailValid && isPasswordValid && isPhoneValid)
         {
