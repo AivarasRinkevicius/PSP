@@ -1,9 +1,7 @@
 package com.user_creation.application.service;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,12 +10,14 @@ import java.util.Optional;
 import com.user_creation.application.interfaces.Validator;
 import com.user_creation.application.model.User;
 import com.user_creation.application.repository.UserRepository;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.xmlunit.validation.ValidationResult;
 
 
 @ExtendWith(MockitoExtension.class)
@@ -63,16 +63,46 @@ class UserServiceTest {
         assertEquals(1, found.size());
     }
 
+    @Test
+    void testValidateBadUser() {
+
+        when(validatorFactory.getValidator(Mockito.anyString())).thenReturn(validator);
+        User user = new User("Jonas", "Jonaitis", "+370639", "jonaitisgmail.com", "Vilnius, traku gatve 34", "Jomnas124");
+
+        Exception thrown = Assertions.assertThrows(Exception.class, () -> {
+            userService.validate(user);
+        });
+
+        Assertions.assertEquals("blogas email!\nblogas slaptazodis!\nblogas telefono numeris!\n", thrown.getMessage());
+
+    }
+
+    @Test
+    void testValidateValidUser() {
+
+        when(validatorFactory.getValidator(Mockito.anyString())).thenReturn(validator);
+
+        User user = new User("Jonas", "Jonaitis", "+370639", "jonaitisgmail.com", "Vilnius, traku gatve 34", "Jomnas124");
+
+        Exception thrown = Assertions.assertThrows(Exception.class, () -> {
+            userService.validate(user);
+        });
+
+        Assertions.assertEquals("blogas email!\nblogas slaptazodis!\nblogas telefono numeris!\n", thrown.getMessage());
+
+    }
 
     @Test
     void testUpdate() throws Exception {
 
         when(validatorFactory.getValidator(Mockito.anyString())).thenReturn(validator);
+        when(validator.validate(Mockito.anyString())).thenReturn(Boolean.TRUE);
+
         User user = new User("Jonas", "Jonaitis", "+37063914578", "jonaitis@gmail.com", "Vilnius, traku gatve 34", "Jomnas124?");
 
         userService.update(user);
-
         verify(userRepository).save(Mockito.any(User.class));
+
     }
 
     @Test
@@ -88,7 +118,9 @@ class UserServiceTest {
     void testAdd() throws Exception {
 
         when(validatorFactory.getValidator(Mockito.anyString())).thenReturn(validator);
-        User user = new User("Jonas", "Jonaitis", "+37063914578", "jonaitis@gmail.com", "Vilnius, traku gatve 34", "Jomnas124?");
+        when(validator.validate(Mockito.anyString())).thenReturn(Boolean.TRUE);
+
+        User user = new User("Jonas", "Jonaitis", "863914578", "jonaitis@gmail.com", "Vilnius, traku gatve 34", "Jomnas124?");
 
         when(userRepository.save(Mockito.any(User.class))).thenReturn(user);
 
